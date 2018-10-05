@@ -7,25 +7,22 @@ With this image, you don't need to install an "IDE" anymore, you simply run a Do
 
 ## How to use
 
+### Build image once
+
+`docker build -t vscodephp5 .`
+
 ### Launch:
 
-To launch the "IDE" and set the current folder as the root of your application:
-
-```console
-$ docker run -ti --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v "$PWD":/var/www/html -e DISPLAY=unix$DISPLAY --device /dev/dri --name vscode --net="host" insready/vscode-php
-```
-
-You can set up `bash` alias for the command above, for example:
+You can set up `bash` function for the command above, for example by adding following code to `~/.bashrc`:
 
 ```
-nano ~/.bashrc
-
-alias phpcode='docker run -ti --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v "$PWD":/var/www/html -e DISPLAY=unix$DISPLAY --device /dev/dri --name vscode --net="host" insready/vscodphp'
-
-source ~/.bashrc
+vscodephp5() {
+    xhost +local:docker;
+    docker run -ti --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v "$PWD":/var/www/html -e DISPLAY=unix$DISPLAY --device /dev/dri --name vscode --net="host" vscodephp5;
+}
 ```
 
-Once you set up the alias above, you can simply launch your "IDE" with simple command `phpcode`.
+Once you set up the alias above, you can simply launch your "IDE" with simple command `vscodephp5`.
 
 ### Stop:
 
